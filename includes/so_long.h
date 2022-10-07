@@ -17,10 +17,10 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include "libft.h"
-# include "game.h"
-# include "key.h"
-# include "characters.h"
-# include "file. h"
+# include "game_props.h"
+# include "key_map.h"
+# include "sprites_props.h"
+# include "files.h"
 
 # define EXIT_SUCCEED		0
 # define EXIT_FAILURE		0
@@ -77,6 +77,12 @@ typedef struct s_map
 	int				enemy;
 	t_tile			**tiles;
 }	t_map;
+
+typedef struct s_tile
+{
+	char	type;
+	t_vtr	v;
+}	t_tile;
 
 typedef struct s_img
 {

@@ -18,5 +18,5 @@
 # define ENEMY				0
 # define SPAWN_RATE			3
 # define SCORE_LEN			4
-# define MAP_FILE			"simple_mon.ber"
+# define MAP_FILE			"test.ber"
 #endif

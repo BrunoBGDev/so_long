@@ -1,0 +1,27 @@
+/* XPM */
+static char *Slime_front_walk5[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1 ",
+"  c None",
+". c gray9",
+"X c #76CA6D",
+"o c #96E06D",
+"O c #CBE36F",
+/* pixels */
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+"                ",
+"      ....      ",
+"     .XOOX.     ",
+"    .oOOOOo.    ",
+"    .ooOOoo.    ",
+"   .XX.oo.XX.   ",
+"   .XXXXXXXX.   ",
+"                ",
+"                ",
+"                ",
+"                "
+};
