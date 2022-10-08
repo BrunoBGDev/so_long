@@ -14,14 +14,16 @@ CFLAGS+= -DSTRINGPUTX11
 all: $(NOM)
 
 $(NOM):	$(OBJ)
+	@echo "Compiling MinilibX"
 	@ar -r $(NOM) $(OBJ)
 	@ranlib $(NOM)
-	@echo "Compiling MinilibX"
 
 clean:
 	@rm -f $(NOM) $(OBJ) *~
 	@rm -f mlx_app
-
+	@echo "Cleaning MinilibX"
 fclean: clean
 
-re: clean all
+re: fclean all
+
+.PHONY: all clean fclean re

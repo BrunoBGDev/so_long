@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 22:27:03 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/22 22:33:26 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/10/08 12:37:50 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # define ACT_INTERACT	5
 # define ACT_SLEEP		8
 # define ACT_FALLEN		9
-
 # define DIRCT_LEFT		1
 # define DIRCT_UP		2
 # define DIRCT_RIGHT	3

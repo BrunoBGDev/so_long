@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:06:41 by bbraga            #+#    #+#             */
-/*   Updated: 2022/10/07 18:26:45 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/10/08 12:47:25 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 # include "files.h"
 
 # define EXIT_SUCCEED		0
-//# define EXIT_FAILURE		0
-# define ERROR_MLX			0
-# define ERROR_WIN			0
-# define ERROR_FILE_OPEN	0
-# define ERROR_FILE_TYPE	0
-# define ERROR_MAP_INVALID	0
+# define EXIT_FAILURE		1
+# define ERROR_MLX			1
+# define ERROR_WIN			2
+# define ERROR_FILE_OPEN	10
+# define ERROR_FILE_TYPE	11
+# define ERROR_MAP_INVALID	20
 
 typedef struct s_vtr
 {
@@ -79,7 +79,6 @@ typedef struct s_map
 	int				item;
 	int				exit;
 	int				player;
-	int				boss;
 	int				enemy;
 	t_tile			**tiles;
 }	t_map;

@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 22:18:55 by bbraga            #+#    #+#             */
-/*   Updated: 2022/10/07 11:53:10 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/10/08 12:36:21 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define SPRITE_INTERACT_PATH		"player/Gangblanc_left_crouch.xpm"
 # define SPRITE_SLEEP_PATH			"player/Gangblanc_back_crouch.xpm"
 # define SPRITE_HURT_PATH			"player/Gangblanc_stop_front.xpm"
-# define SPRITE_FALLEN_PATH			"player/Gangblanc_fallen.xpm"
+# define SPRITE_FALLEN_PATH			"player/Gangblanc_back_crouch.xpm"
 # define SPRITE_WALK_LEFT1_PATH		"player/Gangblanc_left_walk1.xpm"
 # define SPRITE_WALK_LEFT2_PATH		"player/Gangblanc_left_walk2.xpm"
 # define SPRITE_WALK_RIGHT1_PATH	"player/Gangblanc_right_walk1.xpm"

@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:50:47 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 09:51:02 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/10/08 12:30:20 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ static void	init_map_data(t_data *data, int is_init)
 		data->map.item = 0;
 		data->map.exit = 0;
 		data->map.player = 0;
-		data->map.boss = 1;
 		data->map.enemy = 0;
 	}
 	else

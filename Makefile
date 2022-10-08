@@ -6,7 +6,7 @@
 #    By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/22 16:47:46 by bbraga            #+#    #+#              #
-#    Updated: 2022/10/07 17:57:30 by bbraga           ###   ########.fr        #
+#    Updated: 2022/10/08 12:23:20 by bbraga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,4 +66,3 @@ fclean: clean
 	@rm -rf $(NAME)
 
 .PHONY: all clean fclean re
-
