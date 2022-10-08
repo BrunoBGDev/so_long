@@ -6,7 +6,7 @@
 #    By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/22 16:47:46 by bbraga            #+#    #+#              #
-#    Updated: 2022/09/22 17:51:51 by bbraga           ###   ########.fr        #
+#    Updated: 2022/10/07 17:57:30 by bbraga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,15 @@ INCLUDE_DIR = includes
 MLX_DIR = minilibx
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework Opengl \
 			-framework AppKit
-INCLUDES = -I$(INCLUDES_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
+INCLUDES = -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
 LIBS = -L$(LIBFT_DIR) -lft
 
 BUILD_DIR = build
 SRC_DIR = ./src
-SRCS = 
+SRCS = enemy_props.c event_handler.c files_utils.c game_init.c \
+		game_props.c game_utils.c img_handler.c interface.c main.c \
+		map_init.c map_props.c map_validation.c move_handler.c \
+		player_handler.c player_handler2.c player_props.c  
 
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
@@ -50,7 +53,7 @@ bonus: all
 re: fclean all
 
 cbuild:
-	@-rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)
 
 clean:
 	make clean -C $(LIBFT_DIR)

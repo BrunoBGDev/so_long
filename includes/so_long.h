@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:06:41 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/22 22:18:22 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/10/07 18:26:45 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "files.h"
 
 # define EXIT_SUCCEED		0
-# define EXIT_FAILURE		0
+//# define EXIT_FAILURE		0
 # define ERROR_MLX			0
 # define ERROR_WIN			0
 # define ERROR_FILE_OPEN	0
@@ -47,6 +47,12 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
+
+typedef struct s_tile
+{
+	char	type;
+	t_vtr	v;
+}	t_tile;
 
 typedef struct s_sprt
 {
@@ -78,13 +84,7 @@ typedef struct s_map
 	t_tile			**tiles;
 }	t_map;
 
-typedef struct s_tile
-{
-	char	type;
-	t_vtr	v;
-}	t_tile;
-
-typedef struct s_img
+typedef struct s_panel
 {
 	int		w;
 	int		h;
@@ -105,7 +105,6 @@ typedef struct s_data
 	int				n_enemy;
 	t_sprt			*bg;
 	t_sprt			player;
-	t_sprt			boss;
 	t_sprt			*enemies;
 	t_sprt			*objs;
 	t_map			map;

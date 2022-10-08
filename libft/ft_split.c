@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:20:22 by bbraga            #+#    #+#             */
-/*   Updated: 2022/06/09 12:41:11 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/10/07 18:37:45 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_check(const char *s, char c)
 static char	*ft_minitrim(const char *str, int start, int end)
 {
 	char	*chr;
-	size_t	count;
+	int		count;
 
 	count = 0;
 	chr = malloc(sizeof(char) * (end - start) + 1);
@@ -54,8 +54,8 @@ char	**ft_split(const char *s, char c)
 {
 	int		array;
 	char	**rst;
-	size_t	count;
-	size_t	i;
+	int		count;
+	int		i;
 
 	rst = (char **)malloc(((ft_check(s, c)) + 1) * sizeof(*rst));
 	if (!rst)
