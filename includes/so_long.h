@@ -30,6 +30,14 @@
 # define ERROR_FILE_TYPE	11
 # define ERROR_MAP_INVALID	20
 
+# ifdef __linux__
+#  define IS_LINUX 1
+#  define OS "LINUX"
+# else
+#  define IS_LINUX 0
+#  define OS "MAC"
+# endif
+
 typedef struct s_vtr
 {
 	int	x;

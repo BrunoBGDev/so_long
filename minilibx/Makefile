@@ -24,6 +24,6 @@ clean:
 	@echo "Cleaning MinilibX"
 fclean: clean
 
-re: fclean all
+re: clean fclean all
 
 .PHONY: all clean fclean re
