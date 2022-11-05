@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:05:57 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 10:10:04 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 09:06:06 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ void	player_switch_acting(t_data *data)
 
 	p = data->player;
 	mlx_destroy_image(data->mlx, p.img.mlx);
-	if (p.act == ACT_FALLEN)
-		data->player.img = set_img(data, SPRITE_FALLEN_PATH);
-	else if (p.act == ACT_SLEEP)
-		data->player.img = set_img(data, SPRITE_SLEEP_PATH);
-	else if (p.act == ACT_SIT)
+	if (p.act == ACT_SIT)
 		data->player.img = set_img(data, SPRITE_KNEEL_PATH);
 }
 

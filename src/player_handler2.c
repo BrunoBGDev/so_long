@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:10:41 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 10:10:52 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 09:07:46 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,6 @@ void	player_hurting(t_data *data)
 		data->player.act = ACT_FALLEN;
 		data->player.animating = 0;
 	}
-}
-
-void	player_sleeping(t_data *data)
-{
-	t_sprt	p;
-
-	p = data->player;
-	if (p.act != ACT_STAND)
-		return ;
-	mlx_destroy_image(data->mlx, data->player.img.mlx);
-	data->player.act = ACT_SLEEP;
-	data->player.img = set_img(data, SPRITE_SLEEP_PATH);
 }
 
 void	player_interacting(t_data *data)

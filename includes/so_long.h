@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:06:41 by bbraga            #+#    #+#             */
-/*   Updated: 2022/10/08 12:47:25 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 10:27:17 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ void	player_walking(t_data *data);
 void	player_collecting(t_data *data);
 void	player_moving(t_data *data);
 void	player_hurting(t_data *data);
-void	player_sleeping(t_data *data);
 void	player_interacting(t_data *data);
 
 void	render_enemies(t_data *game);
@@ -156,7 +155,6 @@ void	respawn_enemies(t_data *data);
 
 void	moving_handling(t_data *data, int dirct);
 void	space_handling(t_data *data);
-void	ctrl_handling(t_data *data, int is_release);
 void	enter_handling(t_data *data);
 void	update_score(t_data *data);
 

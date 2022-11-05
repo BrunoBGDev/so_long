@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_vaidation.c                                    :+:      :+:    :+:   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:12:54 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 10:13:06 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 10:15:26 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static int	valid_wall(t_map map);
 
 int	validate_file_ext(char *filename)
 {
@@ -24,21 +22,6 @@ int	validate_file_ext(char *filename)
 		return (0);
 	ext = filename + (len - 4);
 	return (!ft_strncmp(".ber", ext, 4));
-}
-
-void	validate_map(t_data *data)
-{
-	t_map	m;
-
-	m = data->map;
-	if (m.grid_x * m.grid_y < 4 * 4)
-		error_game(data, ERROR_MAP_INVALID, "map is small.");
-	if (ft_strlen(m.filedata) != m.grid_x * m.grid_y + m.grid_y - 1)
-		error_game(data, ERROR_MAP_INVALID, "map is not rect.");
-	if (m.item == 0 || m.player == 0 || m.exit != 1)
-		error_game(data, ERROR_MAP_INVALID, "map not meet minimun requirement");
-	if (valid_wall(data->map) == 0)
-		error_game(data, ERROR_MAP_INVALID, "map not covered with wall.");
 }
 
 static int	valid_wall(t_map map)
@@ -68,4 +51,19 @@ static int	valid_wall(t_map map)
 		y++;
 	}
 	return (1);
+}
+
+void	validate_map(t_data *data)
+{
+	t_map	m;
+
+	m = data->map;
+	if (m.grid_x * m.grid_y < 4 * 4)
+		error_game(data, ERROR_MAP_INVALID, "map is small.");
+	if (ft_strlen(m.filedata) != m.grid_x * m.grid_y + m.grid_y - 1)
+		error_game(data, ERROR_MAP_INVALID, "map is not rect.");
+	if (m.item == 0 || m.player == 0 || m.exit != 1)
+		error_game(data, ERROR_MAP_INVALID, "map not meet minimun requirement");
+	if (valid_wall(data->map) == 0)
+		error_game(data, ERROR_MAP_INVALID, "map not covered with wall.");
 }

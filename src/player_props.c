@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:06:26 by bbraga            #+#    #+#             */
-/*   Updated: 2022/10/08 12:32:28 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 09:08:34 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	check_player(t_data *data)
 	t_sprt	*e;
 
 	p = data->player;
-	if (p.act == ACT_SLEEP)
-		return ;
 	e = data->enemies;
 	while (e)
 	{

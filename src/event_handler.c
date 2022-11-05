@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:53:08 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 09:53:21 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 09:03:22 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,6 @@ void	space_handling(t_data *data)
 		data->player.act = ACT_STAND;
 	if (t.type == 'C')
 		check_object_player(data, t);
-}
-
-void	ctrl_handling(t_data *data, int is_release)
-{
-	if (is_release)
-	{
-		if (data->player.act == ACT_SLEEP)
-		{
-			data->player.act = ACT_STAND;
-		}
-	}
-	else
-	{
-		if (data->player.act == ACT_STAND)
-			data->player.act = ACT_SLEEP;
-	}
 }
 
 void	enter_handling(t_data *data)
