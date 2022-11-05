@@ -6,42 +6,11 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:57:17 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 09:57:32 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 11:08:39 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static void	move_enemies(t_data *data, t_sprt *e);
-static void	enemy_walking(t_data *data, t_sprt *e);
-
-void	render_enemies(t_data *game)
-{
-	t_sprt	*e;
-
-	e = game->enemies;
-	while (e)
-	{
-		move_enemies(game, e);
-		enemy_walking(game, e);
-		if (e->img.mlx)
-			mlx_put_image_to_window(
-				game->mlx, game->win, e->img.mlx, e->v.x, e->v.y);
-		e = e->next;
-	}
-}
-
-void	respawn_enemies(t_data *game)
-{
-	t_tile	t;
-
-	if (game->map.enemy >= ENEMY)
-		return ;
-	t = random_free_tile(game, FRAME_RATE / 2, game->map.enemy);
-	t.type = 'M';
-	new_enemy(game, t);
-	game->map.enemy++;
-}
 
 static void	enemy_walking(t_data *data, t_sprt *e)
 {
@@ -92,3 +61,33 @@ static void	move_enemies(t_data *data, t_sprt *e)
 	}
 	e->nv = nv;
 }
+
+void	render_enemies(t_data *game)
+{
+	t_sprt	*e;
+
+	e = game->enemies;
+	while (e)
+	{
+		move_enemies(game, e);
+		enemy_walking(game, e);
+		if (e->img.mlx)
+			mlx_put_image_to_window(
+				game->mlx, game->win, e->img.mlx, e->v.x, e->v.y);
+		e = e->next;
+	}
+}
+
+void	respawn_enemies(t_data *game)
+{
+	t_tile	t;
+
+	if (game->map.enemy >= ENEMY)
+		return ;
+	t = random_free_tile(game, FRAME_RATE / 2, game->map.enemy);
+	t.type = 'M';
+	new_enemy(game, t);
+	game->map.enemy++;
+}
+
+

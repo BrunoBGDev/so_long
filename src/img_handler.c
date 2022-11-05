@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:39:04 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/24 19:32:31 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 11:03:47 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_img	set_img(t_data *data, char *path)
 	char	*dir;
 	char	*fpath;
 
-	if (TILE_SIZE == 16)
+	if (TILE_SIZE == 64)
 		dir = "sprites/map_images/";
 	fpath = ft_strjoin(dir, path);
 	img.mlx = mlx_xpm_file_to_image(data->mlx, fpath, &img.w, &img.h);

@@ -6,13 +6,28 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:51:58 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 09:52:15 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 11:03:11 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	init_number(t_data *data, int i);
+static void	init_number(t_data *data, int i)
+{
+	int		sx;
+	t_sprt	*s;
+
+	sx = data->w - SCORE_LEN * data->bsize;
+	s = malloc(sizeof(t_sprt));
+	s->v.x = sx + i * data->bsize;
+	s->v.y = data->map.height;
+	s->img = get_number_img(data, '0', NULL);
+	s->next = NULL;
+	if (!data->panel.score)
+		data->panel.score = s;
+	else
+		add_sprt_list(data->panel.score, s);
+}
 
 void	load_panel(t_data *data)
 {
@@ -78,21 +93,4 @@ void	update_score(t_data *data)
 		s = s->next;
 	}
 	free(txt);
-}
-
-static void	init_number(t_data *data, int i)
-{
-	int		sx;
-	t_sprt	*s;
-
-	sx = data->w - SCORE_LEN * data->bsize;
-	s = malloc(sizeof(t_sprt));
-	s->v.x = sx + i * data->bsize;
-	s->v.y = data->map.height;
-	s->img = get_number_img(data, '0', NULL);
-	s->next = NULL;
-	if (!data->panel.score)
-		data->panel.score = s;
-	else
-		add_sprt_list(data->panel.score, s);
 }

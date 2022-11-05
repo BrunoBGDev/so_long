@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files_props.c                                      :+:      :+:    :+:   */
+/*   files_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:31:22 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 10:31:37 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/05 11:14:48 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 #include <fcntl.h>
 #include "so_long.h"
 
-static char	*read_file(t_data *data, char *filename);
-static char	*ft_str_concat(char *dest, char *src);
-
-void	load_file(t_data *data, char *filename)
+static char	*ft_str_concat(char *dest, char *src)
 {
-	char	*filepath;
-	char	*file;
+	int	i;
 
-	filepath = ft_strjoin("maps/", filename);
-	file = read_file(data, filepath);
-	data->map.filedata = file;
-	free(filepath);
+	i = 0;
+	while (*(dest + i))
+		i++;
+	while (*src)
+	{
+		*(dest + i) = *src;
+		i++;
+		src++;
+	}
+	*(dest + i) = '\0';
+	return (dest);
 }
 
 static char	*read_file(t_data *data, char *filename)
@@ -54,19 +57,14 @@ static char	*read_file(t_data *data, char *filename)
 	return (file);
 }
 
-static char	*ft_str_concat(char *dest, char *src)
-{
-	int	i;
 
-	i = 0;
-	while (*(dest + i))
-		i++;
-	while (*src)
-	{
-		*(dest + i) = *src;
-		i++;
-		src++;
-	}
-	*(dest + i) = '\0';
-	return (dest);
+void	load_file(t_data *data, char *filename)
+{
+	char	*filepath;
+	char	*file;
+
+	filepath = ft_strjoin("maps/", filename);
+	file = read_file(data, filepath);
+	data->map.filedata = file;
+	free(filepath);
 }
