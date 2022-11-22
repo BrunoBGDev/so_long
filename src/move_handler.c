@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:51:51 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/23 10:52:01 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/21 11:53:55 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vtr	get_move_vtr(int drct, int msize)
 	if (msize == 0)
 		m = TILE_SIZE;
 	else
-		m = msize * TILE_SIZE / 32;
+		m = msize * TILE_SIZE / 16;
 	if (drct == DIRCT_LEFT)
 		v.x = m * -1;
 	if (drct == DIRCT_RIGHT)

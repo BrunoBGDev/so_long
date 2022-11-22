@@ -1,4 +1,4 @@
-# **************************************************************************** #
+#**************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,7 +6,7 @@
 #    By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/22 16:47:46 by bbraga            #+#    #+#              #
-#    Updated: 2022/10/08 12:23:20 by bbraga           ###   ########.fr        #
+#    Updated: 2022/11/22 08:50:33 by bbraga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,32 @@ CFLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = libft
 INCLUDE_DIR = includes
 
-MLX_DIR = minilibx
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework Opengl \
-			-framework AppKit
-INCLUDES = -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
-LIBS = -L$(LIBFT_DIR) -lft
+UNAME = $(shell uname -s)
+ifeq ($(UNAME), Linux)
+	SRCS_PLATFORM = game_linux.c
+	MLX_DIR		= minilibx_linux
+	MLX_FLAGS	= -Imlx_Linux -Lmlx_Linux -lmlx_Linux -lXext -lX11 -lm -lz
+	INCLUDES 	= -I$(INCLUDE_DIR) \
+				  -I$(LIBFT_DIR) \
+				  -I/usr/include
+	LIBS		= -L$(LIBFT_DIR) -lft \
+				  -L/usr/lib
+else
+	SRCS_PLATFORM = game_mac.c
+	MLX_DIR		= minilibx_mac
+	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL \
+				  -framework AppKit
+	INCLUDES 	= -I$(INCLUDE_DIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
+	LIBS		= -L$(LIBFT_DIR) -lft
+endif
 
 BUILD_DIR = build
 SRC_DIR = ./src
-SRCS = enemy_props.c event_handler.c files_utils.c game_init.c \
-		game_props.c game_utils.c img_handler.c interface.c main.c \
-		map_init.c map_props.c map_validation.c move_handler.c \
+SRCS = $(SRCS_PLATFORM) \
+	   	enemy_props.c event_handler.c files_utils.c \
+		game_utils.c  game_init.c main.c \
+		img_handler.c interface.c map_init.c \
+		map_props.c map_validation.c move_handler.c \
 		player_handler.c player_handler2.c player_props.c  
 
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)

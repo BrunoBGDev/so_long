@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 22:18:55 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/05 10:23:05 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/21 11:44:07 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define TEXT_NUMBER_7				"sprites/map_images/7.xpm"
 # define TEXT_NUMBER_8				"sprites/map_images/8.xpm"
 # define TEXT_NUMBER_9				"sprites/map_images/9.xpm"
-# define OBJECT_WALL_PATH			"sprites/map_images/Tree.xpm"
+# define OBJECT_WALL_PATH			"sprites/map_images/Trees.xpm"
 # define OBJECT_ITEM_PATH			"sprites/map_images/Chest.xpm"
 # define OBJECT_GRASS_PATH			"sprites/map_images/Grass.xpm"
 # define OBJECT_EXIT_PATH			"sprites/map_images/Portal.xpm"
