@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 13:58:03 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/22 11:16:00 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 16:38:15 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*ft_new_stack(char *stack)
 		free(stack);
 		return (0);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_stringlen(stack) - count + 1));
+	str = (char *)malloc(sizeof(char) * (ft_stlen(stack) - count + 1));
 	if (!str)
 		return (0);
 	count++;
