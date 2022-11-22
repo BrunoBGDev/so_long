@@ -6,64 +6,65 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 10:12:54 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/05 10:15:26 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 10:20:52 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	validate_file_ext(char *filename)
+static void	check_border(t_param *param)
 {
-	int		len;
-	char	*ext;
+	int	i;
 
-	len = ft_strlen(filename);
-	if (len < 4)
-		return (0);
-	ext = filename + (len - 4);
-	return (!ft_strncmp(".ber", ext, 4));
-}
-
-static int	valid_wall(t_map map)
-{
-	int		i;
-	int		x;
-	int		y;
-	char	*f;
-
-	i = 0;
-	x = 0;
-	y = 0;
-	f = map.filedata;
-	while (f[i])
+	i = -1;
+	while (++i < param->height)
 	{
-		x = 0;
-		while (f[i] && f[i] != '\n')
-		{
-			if ((x == 0 || x == map.grid_x - 1) && f[i] != '1')
-				return (0);
-			if ((y == 0 || y == map.grid_y -1) && f[i] != '1')
-				return (0);
-			i++;
-			x++;
-		}
-		i++;
-		y++;
+		if (param->map[i][0] != '1' || param->map[i][param->width -1] != '1')
+			exit_error("INVALID MAP: BORDERS MUST BE CLOSED", 0);
 	}
-	return (1);
+	i = -1;
+	while (param->map[0][++i])
+	{
+		if (param->map[0][i] != '1')
+			exit_error("INVALID MAP: BORDERS MUST BE CLOSED", 0);
+	}
+	i = -1;
+	while (param->map[param->height][++i])
+	{
+		if (param->map[param->height][i] != '1')
+			exit_error("INVALID MAP: BORDERS MUST BE CLOSED", 0);
+	}
 }
 
-void	validate_map(t_data *data)
+static void	check_char(t_param *param)
 {
-	t_map	m;
+	int	i;
+	int	j;
 
-	m = data->map;
-	if (m.grid_x * m.grid_y < 4 * 4)
-		error_game(data, ERROR_MAP_INVALID, "map is small.");
-	if (ft_strlen(m.filedata) != m.grid_x * m.grid_y + m.grid_y - 1)
-		error_game(data, ERROR_MAP_INVALID, "map is not rect.");
-	if (m.item == 0 || m.player == 0 || m.exit != 1)
-		error_game(data, ERROR_MAP_INVALID, "map not meet minimun requirement");
-	if (valid_wall(data->map) == 0)
-		error_game(data, ERROR_MAP_INVALID, "map not covered with wall.");
+	i = -1;
+	while (param->map[++i])
+	{
+		j = -1;
+		while (param->map[i][++j])
+		{
+			if (param->map[i][j] == 'C')
+				param->c++;
+			if (param->map[i][j] == 'E')
+				param->e++;
+			if (param->map[i][j] == 'P')
+				param->p++;
+		}
+	}
+	if (!param->c)
+		exit_error("INVALID MAP : NO ITEMS TO COLLECT", 0);
+	if (param->e != 1)
+		exit_error("INVALID MAP : TOO MANY OR NO EXIT", 0);
+	if (param->p != 1)
+		exit_error("INVALID MAP : TOO MANY OR NO PLAYER", 0);
+}
+
+void	check_map(t_param *param)
+{
+	check_border(param);
+	check_char(param);
 }

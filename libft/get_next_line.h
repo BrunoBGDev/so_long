@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 13:53:05 by bbraga            #+#    #+#             */
-/*   Updated: 2022/06/29 16:12:13 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 11:15:14 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 char	*ft_get_line(char *stack);
 char	*get_next_line(int fd);
-char	*ft_strchr(char *s, int c);
-char	*ft_strjoin(char *stack, char *buff);
-size_t	ft_strlen(const char *s);
+char	*ft_stringchr(char *s, int c);
+char	*ft_stringjoin(char *stack, char *buff);
+size_t	ft_stringlen(const char *s);
 
 #endif

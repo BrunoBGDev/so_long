@@ -6,13 +6,13 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 13:58:08 by bbraga            #+#    #+#             */
-/*   Updated: 2022/07/01 20:58:51 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 11:14:26 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_stringlen(const char *s)
 {
 	size_t	len;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_stringchr(char *s, int c)
 {
 	int	count;
 
@@ -32,7 +32,7 @@ char	*ft_strchr(char *s, int c)
 	if (!s)
 		return (0);
 	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
+		return ((char *)&s[ft_stringlen(s)]);
 	while (s[count] != '\0')
 	{
 		if (s[count] == (char) c)
@@ -42,7 +42,7 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char *stack, char *buff)
+char	*ft_stringjoin(char *stack, char *buff)
 {
 	size_t	count;
 	size_t	i;
@@ -55,7 +55,7 @@ char	*ft_strjoin(char *stack, char *buff)
 	}
 	if (!stack || !buff)
 		return (0);
-	join = malloc(sizeof(char) * ((ft_strlen(stack) + ft_strlen(buff)) + 1));
+	join = malloc(sizeof(char) * ((ft_stringlen(stack) + ft_stringlen(buff)) + 1));
 	if (join == NULL)
 		return (0);
 	count = -1;
@@ -65,7 +65,7 @@ char	*ft_strjoin(char *stack, char *buff)
 				join[count] = stack[count];
 	while (buff[i] != '\0')
 		join[count++] = buff[i++];
-	join[ft_strlen(stack) + ft_strlen(buff)] = '\0';
+	join[ft_stringlen(stack) + ft_stringlen(buff)] = '\0';
 	free(stack);
 	return (join);
 }

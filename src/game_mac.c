@@ -1,81 +1,90 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_props.c                                       :+:      :+:    :+:   */
+/*   game_mac.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:56:38 by bbraga            #+#    #+#             */
-/*   Updated: 2022/09/22 22:37:42 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 11:25:27 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	load_game(t_data *data)
+static void	init_window(t_param *param)
 {
-	data->objs = NULL;
-	data->bg = NULL;
-	data->enemies = NULL;
-	data->frame = 0;
-	data->stime = 0;
-	grid_loop_util(data, &new_bg);
-	load_panel(data);
-	load_score(data);
-	grid_loop_util(data, &new_obj);
-	grid_loop_util(data, &new_player);
-	grid_loop_util(data, &new_enemy);
-}
+	int	height;
+	int	width;
 
-void	render_game(t_data *data)
-{
-	render_sprts_util(data, data->bg);
-	render_sprts_util(data, data->panel.bg);
-	render_sprts_util(data, data->panel.score);
-	render_sprts_util(data, data->objs);
-	render_player(data);
-	render_enemies(data);
-}
-
-void	exit_game(t_data *data, int code)
-{
-	ft_printf("Exit Game\n");
-	free_sprts_util(data, data->bg);
-	free_sprts_util(data, data->objs);
-	free_sprts_util(data, data->panel.bg);
-	free_sprts_util(data, data->panel.score);
-	free_sprts_util(data, data->enemies);
-	mlx_destroy_image(data->mlx, data->player.img.mlx);
-	free_map_tiles(data);
-	if (data->map.filedata)
-		free(data->map.filedata);
-	exit(code);
-}
-
-void	error_game(t_data *data, int code, char *msg)
-{
-	if (code == ERROR_FILE_OPEN || code == ERROR_MAP_INVALID)
-		ft_printf("Error: %s\n", msg);
-	else if (code == ERROR_MLX)
+	height = (param->height + 1) * 16;
+	width = param->width * 16;
+	param->mlx = mlx_init();
+	param->mlx_win = mlx_new_window(param->mlx, width, height, "SO_LONG");
+	param->mlx_img = mlx_new_image(param->mlx, width, height);
+	if (param->mlx == 0 || param->mlx_win == 0 || param->mlx_img == 0)
 	{
-		ft_printf("Error: MLX lib cannot operation\n");
-		free(data->mlx);
+		free_all(param);
+		exit_error("ERROR: IMAGE INITIALISATION FAILED", 0);
 	}
-	else if (code == ERROR_WIN)
-	{
-		ft_printf("Error: MLX WIN lib cannoot operation\n");
-		free(data->mlx);
-		free(data->win);
-	}
-	free(data->map.filedata);
-	exit(1);
 }
 
-int	close_game(int keycode, t_data *data)
+static void	init_images(t_param *param)
 {
-	ft_printf("Close Game\n");
-	(void) data;
-	(void) keycode;
-	exit(0);
+	put_image(param, &param->player, "./sprites/player/char_front.xpm");
+	put_image(param, &param->enemie, "./sprites/map_images/Portal.xpm");
+	put_image(param, &param->chest, "./sprites/map_images/Chest.xpm");
+	put_image(param, &param->wall, "./sprites/map_images/Trees.xpm");
+	put_image(param, &param->grass, "./sprites/map_images/Grass.xpm");
+}
+
+static void	init_item(t_param *param, void *item, int i, int j)
+{
+	if (item == param->player)
+	{
+		param->player_x = i;
+		param->player_y = j;
+		mlx_put_image_to_window(param->mlx, param->mlx_win, \
+			item, i * 16, j * 16);
+	}
+	else
+		mlx_put_image_to_window(param->mlx, param->mlx_win, \
+			item, i * 16, j * 16);
+}
+
+int	init_map(t_param *param)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (param->map[++j])
+	{
+		i = -1;
+		while (param->map[j][++i])
+		{
+			if (param->map[j][i] == 'E')
+				init_item(param, param->enemie, i, j);
+			if (param->map[j][i] == '1')
+				init_item(param, param->wall, i, j);
+			if (param->map[j][i] == 'C')
+				init_item(param, param->chest, i, j);
+			if (param->map[j][i] == 'P')
+				init_item(param, param->player, i, j);
+			if (param->map[j][i] == '0')
+				init_item(param, param->grass, i, j);
+		}
+	}
 	return (0);
+}
+
+void	game(t_param *param)
+{
+	init_window(param);
+	init_images(param);
+	init_map(param);
+	mlx_hook(param->mlx_win, 2, 1L << 0, keypress, param);
+	mlx_hook(param->mlx_win, 17, 1L << 17, free_all_exit, param);
+	mlx_hook(param->mlx_win, 9, 1L << 21, init_map, param);
+	mlx_loop(param->mlx);
 }

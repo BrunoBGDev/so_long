@@ -6,91 +6,81 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:51:58 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/05 11:03:11 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 11:07:20 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	init_number(t_data *data, int i)
+void	put_image(t_param *param, void **image, char *path)
 {
-	int		sx;
-	t_sprt	*s;
+	int	width;
+	int	height;
 
-	sx = data->w - SCORE_LEN * data->bsize;
-	s = malloc(sizeof(t_sprt));
-	s->v.x = sx + i * data->bsize;
-	s->v.y = data->map.height;
-	s->img = get_number_img(data, '0', NULL);
-	s->next = NULL;
-	if (!data->panel.score)
-		data->panel.score = s;
-	else
-		add_sprt_list(data->panel.score, s);
-}
-
-void	load_panel(t_data *data)
-{
-	int		gx;
-	int		gy;
-	t_sprt	*bg;
-
-	gx = 0;
-	gy = data->map.grid_y;
-	bg = data->panel.bg;
-	data->panel.h = data->bsize;
-	data->panel.w = data->map.width;
-	data->panel.v.x = 0;
-	data->panel.v.y = data->map.height;
-	data->panel.bg = NULL;
-	while (gx < data->map.grid_x)
+	*image = mlx_xpm_file_to_image(param->mlx, path, &width, &height);
+	if (!(*image))
 	{
-		bg = malloc(sizeof(t_sprt));
-		bg->img = set_img(data, OBJECT_GRASS_PATH);
-		bg->v.x = gx * data->bsize;
-		bg->v.y = gy * data->bsize;
-		bg->next = NULL;
-		if (!data->panel.bg)
-			data->panel.bg = bg;
-		else
-			add_sprt_list(data->panel.bg, bg);
-		gx++;
+		free_all(param);
+		ft_putendl_fd("Image initialisation problem", 2);
+		exit(0);
 	}
 }
 
-void	load_score(t_data *data)
+int	keypress(int code, t_param *param)
 {
-	int		i;
-
-	data->panel.score = NULL;
-	i = 0;
-	while (i < 4)
-		init_number(data, i++);
+	if (code == 13 || code == 126)
+	{
+		if (move_up(param))
+			ft_printf("%d\n", ++param->count);
+	}
+	if (code == 0 || code == 123)
+	{
+		if (move_left(param))
+			ft_printf("%d\n", ++param->count);
+	}
+	if (code == 1 || code == 125)
+	{
+		if (move_down(param))
+			ft_printf("%d\n", ++param->count);
+	}
+	if (code == 2 || code == 124)
+	{
+		if (move_right(param))
+			ft_printf("%d\n", ++param->count);
+	}
+	if (code == 53)
+		free_all_exit(param);
+	return (0);
 }
 
-void	update_score(t_data *data)
+int	free_all_exit(t_param *param)
 {
-	char	*txt;
-	int		len;
-	int		i;
-	t_sprt	*s;
+	free_all(param);
+	exit(0);
+}
 
-	txt = ft_itoa(data->player.moved);
-	len = ft_strlen(txt);
-	s = data->panel.score;
-	i = 0;
-	while (i < SCORE_LEN)
-	{
-		if (i == 3 && len >= 1)
-			s->img = get_number_img(data, txt[len - 1], &s->img);
-		else if (i == 2 && len >= 2)
-			s->img = get_number_img(data, txt[len - 2], &s->img);
-		else if (i == 1 && len >= 3)
-			s->img = get_number_img(data, txt[len - 3], &s->img);
-		else if (i == 0 && len == 4)
-			s->img = get_number_img(data, txt[len - 4], &s->img);
-		i++;
-		s = s->next;
-	}
-	free(txt);
+void	exit_error(char *msg, int code)
+{
+	ft_putendl_fd(msg, 2);
+	exit(code);
+}
+
+void	free_all(t_param *param)
+{
+	int	i;
+
+	i = -1;
+	mlx_destroy_image(param->mlx, param->player);
+	mlx_destroy_image(param->mlx, param->chest);
+	mlx_destroy_image(param->mlx, param->wall);
+	mlx_destroy_image(param->mlx, param->enemie);
+	mlx_destroy_image(param->mlx, param->grass);
+	mlx_destroy_window(param->mlx, param->mlx_win);
+	while (param->map[++i])
+		free(param->map[i]);
+	free(param->map);
+	if (param->success)
+		ft_printf("GREAT! YOUR SCORE IS: %d\n", ++param->count);
+	if (param->fail)
+		ft_printf("TRY AGAIN!\n");
 }

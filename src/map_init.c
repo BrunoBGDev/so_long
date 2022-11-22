@@ -6,107 +6,79 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:50:47 by bbraga            #+#    #+#             */
-/*   Updated: 2022/10/08 12:30:20 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 10:19:06 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	init_map_data(t_data *data, int is_init);
-
-static t_tile	new_tile(char type, int x, int y)
+static t_param	*get_wh(t_param *param)
 {
-	t_tile	tile;
-
-	tile.type = type;
-	tile.v.x = x;
-	tile.v.y = y;
-	return (tile);
+	param->width = ft_strlen(param->map[0]);
+	while (param->map[param->height])
+		param->height++;
+	param->height--;
+	return (param);
 }
 
-void	load_map(t_data *data)
+static void	check_line(char *line, size_t size, size_t row)
 {
-	char	*f;
+	int	i;
 
-	f = data->map.filedata;
-	init_map_data(data, 1);
-	while (*f)
+	i = -1;
+	if (row != size)
+		exit_error("Invalid map : every row must have the same length", 0);
+	while (line[++i])
 	{
-		while (*f && *f != '\n')
+		if (line[i] != '0' && line[i] != '1' && line[i] != 'C'
+			&& line[i] != 'E' && line[i] != 'P' && line[i] != '\n')
 		{
-			if (data->map.grid_y == 0)
-				data->map.grid_x++;
-			if (*f == 'C')
-				data->map.item++;
-			else if (*f == 'E')
-				data->map.exit++;
-			else if (*f == 'P')
-				data->map.player++;
-			else if (*f == 'M')
-				data->map.enemy++;
-			f++;
+			ft_printf("Unknown caracter %c\n", line[i]);
+			exit_error("Error: unidentified map caracter", 0);
 		}
-		data->map.grid_y++;
-		f++;
 	}
-	init_map_data(data, 0);
-	validate_map(data);
 }
 
-void	load_tiles(t_data *data)
+static char	*get_data(int fd)
 {
-	char	*str;
-	int		gx;
-	int		gy;
+	char		*line;
+	char		*data;
+	size_t		size;
+	size_t		row;
 
-	data->map.tiles = malloc(sizeof(t_tile *) * data->map.grid_y);
-	gy = 0;
-	str = data->map.filedata;
-	while (*str)
+	line = get_next_line(fd);
+	if (line == NULL)
+		exit_error("EMPTY FILE", 0);
+	size = ft_strlen(line);
+	data = ft_strdup(line);
+	while (line)
 	{
-		gx = 0;
-		data->map.tiles[gy] = malloc(sizeof(t_tile) * data->map.grid_x);
-		while (*str != '\n' && *str)
+		line = get_next_line(fd);
+		if (line)
 		{
-			data->map.tiles[gy][gx] = new_tile(
-					*str, gx * data->bsize, gy * data->bsize);
-			gx++;
-			str++;
+			row = ft_strlen(line);
+			check_line(line, size, row);
+			data = ft_strjoin(data, line);
+			free(line);
 		}
-		str++;
-		gy++;
 	}
+	return (data);
 }
 
-void	free_map_tiles(t_data *data)
+void	build_map(char *argv, t_param *param)
 {
-	int		gy;
+	int		fd;
+	char	*path;
+	char	*data;
 
-	gy = 0;
-	while (gy < data->map.grid_y)
-	{
-		free(data->map.tiles[gy]);
-		gy++;
-	}
-	free(data->map.tiles);
-}
-
-static void	init_map_data(t_data *data, int is_init)
-{
-	if (is_init)
-	{
-		data->map.grid_x = 0;
-		data->map.grid_y = 0;
-		data->map.item = 0;
-		data->map.exit = 0;
-		data->map.player = 0;
-		data->map.enemy = 0;
-	}
-	else
-	{
-		data->map.width = data->map.grid_x * data->bsize;
-		data->map.height = data->map.grid_y * data->bsize;
-		data->w = data->map.width;
-		data->h = data->map.height + data->bsize;
-	}
+	path = ft_strjoin("./maps/", argv);
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		exit_error("INEXISTENT OR INVALID MAP", 0);
+	data = get_data(fd);
+	param->map = ft_split(data, '\n');
+	close(fd);
+	free(data);
+	param = get_wh(param);
+	check_map(param);
 }

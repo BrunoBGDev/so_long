@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 13:58:03 by bbraga            #+#    #+#             */
-/*   Updated: 2022/06/29 16:12:50 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 11:16:00 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*ft_new_stack(char *stack)
 		free(stack);
 		return (0);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(stack) - count + 1));
+	str = (char *)malloc(sizeof(char) * (ft_stringlen(stack) - count + 1));
 	if (!str)
 		return (0);
 	count++;
@@ -47,7 +47,7 @@ static char	*ft_read_stack(int fd, char *stack)
 	if (!buff)
 		return (0);
 	rd = 1;
-	while (!ft_strchr(stack, '\n') && rd != 0)
+	while (!ft_stringchr(stack, '\n') && rd != 0)
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
 		if (rd == -1)
@@ -56,7 +56,7 @@ static char	*ft_read_stack(int fd, char *stack)
 			return (0);
 		}
 		buff[rd] = '\0';
-		stack = ft_strjoin(stack, buff);
+		stack = ft_stringjoin(stack, buff);
 	}
 	free(buff);
 	return (stack);

@@ -6,76 +6,59 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:40:57 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/05 11:08:42 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 11:06:42 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	initial(t_data *data, char *filename)
+static t_param	*init_param(t_param *param)
 {
-	data->mlx = mlx_init();
-	if (!data->mlx)
-		error_game(data, ERROR_MLX, NULL);
-	load_file(data, filename);
-	load_map(data);
-	load_tiles(data);
-	data->win = mlx_new_window(data->mlx, data->w, data->h, "SO LONG");
-	if (!data->win)
-		error_game(data, ERROR_WIN, NULL);
-	load_game(data);
+	param->player_x = 0;
+	param->player_y = 0;
+	param->map = NULL;
+	param->width = 0;
+	param->height = 0;
+	param->mlx = NULL;
+	param->mlx_win = NULL;
+	param->mlx_img = NULL;
+	param->count = 0;
+	param->c = 0;
+	param->e = 0;
+	param->p = 0;
+	param->player = NULL;
+	param->wall = NULL;
+	param->enemie = NULL;
+	param->grass = NULL;
+	param->chest = NULL;
+	param->success = 0;
+	param->fail = 0;
+	return (param);
 }
 
-static int	render(t_data *data)
+static int	check_file(char *argv)
 {
-	if (data->frame == FRAME_RATE)
-	{
-		data->frame = 0;
-		data->stime += 1;
-		if (data->stime % SPAWN_RATE == 0)
-			respawn_enemies(data);
-	}
-	else
-		data->frame += 1;
-	render_game(data);
-	check_player(data);
-	return (0);
-}
+	int	i;
 
-static int	keyhandler(int keycode, t_data *data)
-{
-	if (keycode == KEY_LEFT || keycode == KEY_A)
-		moving_handling(data, DIRCT_LEFT);
-	if (keycode == KEY_RIGHT || keycode == KEY_D)
-		moving_handling(data, DIRCT_RIGHT);
-	if (keycode == KEY_DOWN || keycode == KEY_S)
-		moving_handling(data, DIRCT_DOWN);
-	if (keycode == KEY_UP || keycode == KEY_W)
-		moving_handling(data, DIRCT_UP);
-	if (keycode == KEY_SPACE)
-		space_handling(data);
-	if (keycode == KEY_ENTER)
-		enter_handling(data);
-	if (keycode == KEY_ESC)
-		exit_game(data, EXIT_SUCCEED);
-	return (0);
+	i = 0;
+	while (argv[i] && argv[i] != '.')
+		i++;
+	if (ft_strncmp((argv + i), ".ber", 4) != 0)
+		return (0);
+	return (1);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
-	char	*filename;
+	t_param	*param;
 
-	if (argc == 1)
-		filename = MAP_FILE;
-	else
-		filename = argv[1];
-	data.bsize = TILE_SIZE;
-	initial(&data, filename);
-	mlx_loop_hook(data.mlx, &render, &data);
-	mlx_hook(data.win, X_EVENT_KEY_PRESS, 1L << 0, &keyhandler, &data);
-	mlx_hook(data.win, X_EVENT_KEY_EXIT, 1L << 0, &close_game, &data);
-	mlx_loop(data.mlx);
+	if (argc != 2)
+		exit_error("ERROR! FORMAT: ./so_long <MAP.BER>", 0);
+	if (!check_file(argv[1]))
+		exit_error("File is not .ber", 0);
+	param = (t_param *)malloc(sizeof(t_param));
+	param = init_param(param);
+	build_map(argv[1], param);
+	game(param);
 	return (0);
 }
-
