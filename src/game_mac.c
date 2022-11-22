@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:56:38 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/22 11:25:27 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/22 13:01:09 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	init_window(t_param *param)
 	int	height;
 	int	width;
 
-	height = (param->height + 1) * 16;
-	width = param->width * 16;
+	height = (param->height + 1) * 64;
+	width = param->width * 64;
 	param->mlx = mlx_init();
 	param->mlx_win = mlx_new_window(param->mlx, width, height, "SO_LONG");
 	param->mlx_img = mlx_new_image(param->mlx, width, height);
@@ -45,11 +45,11 @@ static void	init_item(t_param *param, void *item, int i, int j)
 		param->player_x = i;
 		param->player_y = j;
 		mlx_put_image_to_window(param->mlx, param->mlx_win, \
-			item, i * 16, j * 16);
+			item, i * 64, j * 64);
 	}
 	else
 		mlx_put_image_to_window(param->mlx, param->mlx_win, \
-			item, i * 16, j * 16);
+			item, i * 64, j * 64);
 }
 
 int	init_map(t_param *param)
