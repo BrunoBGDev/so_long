@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:56:38 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/23 13:05:51 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/23 13:52:43 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	init_window(t_param *param)
 	height = (param->height + 1) * 64;
 	width = param->width * 64;
 	param->mlx = mlx_init();
-	param->mlx_win = mlx_new_window(param->mlx, width, height, "SO_LONG");
+	param->mlx_win = mlx_new_window(param->mlx, width, height, "so_long");
 	param->mlx_img = mlx_new_image(param->mlx, width, height);
 	if (param->mlx == 0 || param->mlx_win == 0 || param->mlx_img == 0)
 	{
