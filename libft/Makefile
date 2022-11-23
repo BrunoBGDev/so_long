@@ -6,7 +6,7 @@
 #    By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/13 08:46:58 by bbraga            #+#    #+#              #
-#    Updated: 2022/09/22 12:16:24 by bbraga           ###   ########.fr        #
+#    Updated: 2022/11/23 09:58:40 by bbraga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,9 @@ CC_FLAGS = -Wall -Wextra -Werror
  
  $(OBJS_DIR)%.o : %.c libft.h ft_printf.h get_next_line.h
 	@cc $(CC_FLAGS) -c $< -o $@
-	@echo "Compiling (all .c to .o)"
+	@echo "Loading...[////------]"
 $(NAME): $(OBJS)
-	@echo "Creating lib..."
+	@echo "Loadig...[//////---]"
 	@ar r $(NAME) $(OBJS)
 all: $(NAME)
 

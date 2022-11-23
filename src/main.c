@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:40:57 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/22 11:06:42 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/23 13:06:10 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_param	*init_param(t_param *param)
 	param->p = 0;
 	param->player = NULL;
 	param->wall = NULL;
-	param->enemie = NULL;
+	param->portal = NULL;
 	param->grass = NULL;
 	param->chest = NULL;
 	param->success = 0;

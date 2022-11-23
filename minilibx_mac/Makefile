@@ -14,9 +14,10 @@ CFLAGS+= -DSTRINGPUTX11
 all: $(NOM)
 
 $(NOM):	$(OBJ)
-	@echo "Compiling MinilibX"
+	@echo "Loading...[//////////]"
 	@ar -r $(NOM) $(OBJ)
 	@ranlib $(NOM)
+	@echo "Load Complete!"
 
 clean:
 	@rm -f $(NOM) $(OBJ) *~

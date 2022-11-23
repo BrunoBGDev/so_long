@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:56:38 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/22 13:01:09 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/23 13:05:51 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static void	init_window(t_param *param)
 	if (param->mlx == 0 || param->mlx_win == 0 || param->mlx_img == 0)
 	{
 		free_all(param);
-		exit_error("ERROR: IMAGE INITIALISATION FAILED", 0);
+		exit_error("ERROR: FAILED TO INITIALIZE", 0);
 	}
 }
 
 static void	init_images(t_param *param)
 {
 	put_image(param, &param->player, "./sprites/player/char_front.xpm");
-	put_image(param, &param->enemie, "./sprites/map_images/Portal.xpm");
+	put_image(param, &param->portal, "./sprites/map_images/Portal.xpm");
 	put_image(param, &param->chest, "./sprites/map_images/Chest.xpm");
 	put_image(param, &param->wall, "./sprites/map_images/Trees.xpm");
 	put_image(param, &param->grass, "./sprites/map_images/Grass.xpm");
@@ -64,7 +64,7 @@ int	init_map(t_param *param)
 		while (param->map[j][++i])
 		{
 			if (param->map[j][i] == 'E')
-				init_item(param, param->enemie, i, j);
+				init_item(param, param->portal, i, j);
 			if (param->map[j][i] == '1')
 				init_item(param, param->wall, i, j);
 			if (param->map[j][i] == 'C')
@@ -83,7 +83,7 @@ void	game(t_param *param)
 	init_window(param);
 	init_images(param);
 	init_map(param);
-	mlx_hook(param->mlx_win, 2, 1L << 0, keypress, param);
+	mlx_hook(param->mlx_win, 2, 1L << 0, movement_count, param);
 	mlx_hook(param->mlx_win, 17, 1L << 17, free_all_exit, param);
 	mlx_hook(param->mlx_win, 9, 1L << 21, init_map, param);
 	mlx_loop(param->mlx);

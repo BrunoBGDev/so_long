@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:06:41 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/22 11:04:27 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/23 13:04:44 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_param
 	int		p;
 	void	*player;
 	void	*wall;
-	void	*enemie;
+	void	*portal;
 	void	*grass;
 	void	*chest;
 	int		success;
@@ -55,7 +55,7 @@ int		move_right(t_param *param);
 void	exit_error(char *msg, int code);
 void	free_all(t_param *param);
 void	put_image(t_param *param, void **image, char *path);
-int		keypress(int code, t_param *param);
+int		movement_count(int code, t_param *param);
 int		free_all_exit(t_param *param);
 
 #endif

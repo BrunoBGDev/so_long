@@ -6,7 +6,7 @@
 /*   By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 09:51:58 by bbraga            #+#    #+#             */
-/*   Updated: 2022/11/22 11:07:20 by bbraga           ###   ########.fr       */
+/*   Updated: 2022/11/23 12:59:45 by bbraga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	put_image(t_param *param, void **image, char *path)
 	if (!(*image))
 	{
 		free_all(param);
-		ft_putendl_fd("Image initialisation problem", 2);
+		ft_putendl_fd("ERROR: FAILED TO INITIALIZE IMAGE", 2);
 		exit(0);
 	}
 }
 
-int	keypress(int code, t_param *param)
+int	movement_count(int code, t_param *param)
 {
 	if (code == 13 || code == 126)
 	{
@@ -73,14 +73,14 @@ void	free_all(t_param *param)
 	mlx_destroy_image(param->mlx, param->player);
 	mlx_destroy_image(param->mlx, param->chest);
 	mlx_destroy_image(param->mlx, param->wall);
-	mlx_destroy_image(param->mlx, param->enemie);
+	mlx_destroy_image(param->mlx, param->portal);
 	mlx_destroy_image(param->mlx, param->grass);
 	mlx_destroy_window(param->mlx, param->mlx_win);
 	while (param->map[++i])
 		free(param->map[i]);
 	free(param->map);
 	if (param->success)
-		ft_printf("GREAT! YOUR SCORE IS: %d\n", ++param->count);
+		ft_printf("CONGRATULATION! YOUR SCORE: %d\n", ++param->count);
 	if (param->fail)
-		ft_printf("TRY AGAIN!\n");
+		ft_printf("PLAY AGAIN WITH: make play!\n");
 }

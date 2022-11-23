@@ -6,7 +6,7 @@
 #    By: bbraga <bruno.braga.design@gmail.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/22 16:47:46 by bbraga            #+#    #+#              #
-#    Updated: 2022/11/22 10:47:33 by bbraga           ###   ########.fr        #
+#    Updated: 2022/11/23 13:30:14 by bbraga           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,12 @@ OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 all: $(NAME)
 
 restart: cbuild $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) $(LIBS) \
-	$(MLX_FLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) $(LIBS) \
+	@$(MLX_FLAGS) -o $(NAME)
 
 $(NAME): $(OBJS) libs
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(MLX_FLAGS) -o $(NAME)
-
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(MLX_FLAGS) -o $(NAME)
+	@echo "Ready to play!"
 $(OBJS): $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
 	@$(CC) -g $(CFLAGS) $(INCLUDES) -c $< -o $@
@@ -56,13 +56,15 @@ cbuild:
 	@rm -rf $(BUILD_DIR)
 
 clean:
-	make clean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
+	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(MLX_DIR)
+	@echo "All .o and .c cleared!"
 	@rm -rf $(BUILD_DIR)
 
 fclean: clean
-	make fclean -C $(LIBFT_DIR)
-	make fclean -C $(MLX_DIR)
+	@make fclean -C $(LIBFT_DIR)
+	@make fclean -C $(MLX_DIR)
+	@echo "All files cleared!"
 	@rm -rf $(NAME)
 
 .PHONY: all clean fclean re
